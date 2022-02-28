@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personne index{% endblock %}
+
+{% block body %}
+    <h1>Personne index</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Age</th>
+                <th>Catégorie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personne in personnes %}
+            <tr>
+                <td>{{ personne.id }}</td>
+                <td>{{ personne.prenom }}</td>
+                <td>{{ personne.nom }}</td>
+                <td>{{ personne.age }}</td>
+                <td>{{ personne.categ.nom }}</td>
+                <td>
+                    
+                    <a class="btn btn-warning" 
+                    href="{{ path('personne_edit', {'id': personne.id}) }}">
+                    <i class="fa fa-edit"></i>
+                    </a>
+
+                      <a 
+                      onclick="return confirm('Voulez vous enlever {{ personne.prenom }} ?')"
+                      class="btn btn-danger" 
+                    href="{{ path('personne_delete', {'id': personne.id}) }}"
+                    
+                    >
+                    <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary"href="{{ path('personne_new') }}">Create new</a>
+{% endblock %}
